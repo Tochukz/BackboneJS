@@ -1,4 +1,4 @@
-/* 
+/*
  * Extending BackBone class
  */
 //Define your constructor
@@ -24,9 +24,9 @@ console.log('Turn Page: ', book.currentPage);
 
 
 /**
- * Extending backbone class with the extend method  
+ * Extending backbone class with the extend method
  */
-const Mouse = Backbone.Model.extend();  
+const Mouse = Backbone.Model.extend();
 const mouse = new Mouse();
 console.log(mouse);
 mouse.destroy();
@@ -55,15 +55,15 @@ const Television = Backbone.Model.extend({}, {
     }
 });
 const tv = new Television();
-// Static properties/methods cam only be called on a class
-console.log('Instance Size', tv.size); // undefined 
+// Static properties/methods can only be called on a class
+console.log('Instance Size', tv.size); // undefined
 
 console.log('Static Size', Television.size); // 32
-Television.chanegSize(42); 
+Television.chanegSize(42);
 console.log('New size', Television.size);
 
 /**
- * JavaScript parent class method call from child class 
+ * JavaScript ParentClass method-call from ChildClass
  */
 const Parent = function() {}
 Parent.prototype.addUser = function(username, email) {
@@ -81,12 +81,13 @@ const child = new Child();
 child.addUser('Tochukz', 'truetochukz@gmail.com');
 console.log('Username: ', child.username); // Tochukz
 console.log('Email: ', child.email); // truetochukz@gmail.com
-/* The apply() and call() methods are available in all function because JaaScript functions are objects
- * The apply() and call()  method are similer except that the apply accpet aruments for the function as array element while class  accept inividual argument 
+/* The apply() and call() methods are available in all functions because JavaScript functions are objects
+ * The apply() and call()  method are similer except that the apply() accpets aruments for the function as array
+ * element while call()  accepts inividual argument
  */
 
 /**
- * Calling method of Backbone parent class from child class
+ * Calling method of Backbone ParentClass from ChildClass
  */
 const Manual = Backbone.Model.extend({
   localDestroy: function() {

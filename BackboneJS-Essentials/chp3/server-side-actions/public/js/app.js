@@ -1,7 +1,7 @@
 const books = [
     {
         bookId: 1,
-        title: 'Backbone.js Essentials', 
+        title: 'Backbone.js Essentials',
         author: 'Jeremy Walker',
         lang: 'JavaScript',
         pages: 180
@@ -22,16 +22,16 @@ const books = [
 ];
 
 /*
- * Backbone server side actions 
+ * Backbone server side actions
  */
 /* Defining the REST API endpoint */
 const Book = Backbone.Model.extend({
     urlRoot: '/add-book'
 });
 const book = new Book(books[1]);
-console.log('Book: ', book.attributes); //Book:  {title: "Pro ASP.NET Core 2", author: "Adam Freeman", lang: "C#"}
+console.log('Book: ', book.attributes); //Book:  {title: "Pro ASP.NET Core 2", author: "Adam Freeman", lang: "C#", bookId: 9}
 book.save().then(result => console.log('Added: ', result))
-           .fail(err => console.error('Error: ', err)); // This will initialise a POST request to the endpoint /books
+           .fail(err => console.error('Error: ', err)); // This will initialise a POST request to the endpoint /add-books
 
 /* Overriding Backbone Model's url() method. This is used to dynamically assign a value to urlRoot */
 const Book2 = Backbone.Model.extend({
@@ -56,9 +56,8 @@ console.log('Book 2B URL: ', book2B.url()); // Book 2B RUL:  /javascript
 // It a good idea to store all your URLs in a url object.
 
 /*
- * Backbone idAttribute and id  for Model Identification 
+ * Backbone idAttribute and id  for Model Identification
  */
-
 const Book3 = Backbone.Model.extend({
     idAttribute: 'bookId'
 }); /* If your API return JSON that contains id, your don't need to specify idAttribute */
@@ -66,7 +65,7 @@ const book3 = new Book3(books[2]);
 console.log('ID: ', book3.id); // ID: 3
 console.log('ID: ', book3.get('id')) // ID: undefined
 
-/* 
+/*
  * isNew() method is used to check if a model is new
  */
 console.log('Is Book3 new: ', book3.isNew()); // Is Book3 new: false
@@ -83,12 +82,11 @@ const book4a = new Backbone.Model({id: 7});
 const book4b = new Backbone.Model()
 bookGroup[book4a.cid] = book4a;
 bookGroup[book4b.cid] = book4b;
-console.log('Book Group:', bookGroup); 
+console.log('Book Group:', bookGroup);
 
 /*
- * using Bacnkbone Model fetch method to get data from server 
+ * using Backbone Model fetch method to get data from server
  */
-
  const Book5 = Backbone.Model.extend({
      urlRoot: '/books',
      idAttribute: 'bookId',
@@ -106,7 +104,7 @@ console.log('Book Group:', bookGroup);
  });
 
  /*
-  * using the fetch jQuery promise retrunred from fetch method 
+  * using the fetch jQuery promise returned from fetch method
   */
  const Book6 = Backbone.Model.extend({
      urlRoot: '/books',
@@ -120,13 +118,13 @@ console.log('Book Group:', bookGroup);
                  console.error('Server Error: ', err);
              });
 /* Note the difference between using success/error jQuery callback versus done/fail promise style
- * The Model object is passed to the success() call back 
- * The Model.attributes object is passed to the done() or then() promise method 
+ * The Model object is passed to the success() call back
+ * The Model.attributes object is passed to the done() or then() promise method
  */
 console.log("All Books", books);
 
 /*
- * fetching multiple models using jQuery when()  and then() funtion 
+ * fetching multiple models using jQuery when() and then() funtion
  */
 const Book78 = Backbone.Model.extend({
     idAttribute: 'bookId',
@@ -135,7 +133,7 @@ const Book78 = Backbone.Model.extend({
 const book7 = (new Book78({bookId: 6})).fetch();
 const book8 = (new Book78({bookId: 7})).fetch();
 $.when(book7, book8)
-  .then(function(result1, result2) {
+ .then(function(result1, result2) {
       console.log('Book78 Result1:', result1[0]);
       console.log('Book78 Result2', result2[0]);
 
@@ -145,16 +143,16 @@ $.when(book7, book8)
 
 /*
  * Backbone takes the server response from fetch and call set() on it.
- * It assumes the server response is JSON representing the Model attributes 
+ * It assumes the server response is JSON representing the Model attributes
  */
 // A Model object. model.attributes will gove your the attributes
-console.log('Book6 Model', book6); // 
-// A response object. response.responseJSON will gove you the attributes
-console.log('Book7 Model', book7); 
+console.log('Book6 Model', book6); //
+// A response object. response.responseJSON will give you the attributes
+console.log('Book7 Model', book7);
 
 /*
  * when fetch() finishes, Backbone passes the server reponse through it parse() method before set() of the model
- * parse can be override if for example your API returns a JSON that is wrapped in an envelop.  
+ * parse() can be overriden if for example your API returns a JSON that is wrapped in an envelop.
  */
 /* overriding parse() method to modify JSON to desired attributes */
 const Book9 = Backbone.Model.extend({
@@ -163,7 +161,7 @@ const Book9 = Backbone.Model.extend({
       console.log('Parsing: ', response);
       books.push(response[0]);
       /* because the JSON obejct returned from the server is wrapped in an array [{id: 8, ...}]*/
-      return response[0]; // this object will be used at the model attributes
+      return response[0]; // this object will be used as the model attributes
     }
 });
 book9 = new Book9({id: 8});
@@ -171,7 +169,7 @@ book9.fetch().then(function(result){
   console.log('Done Book 9', result);
 });
 
-console.log("Book 9", book9); // model 
+console.log("Book 9", book9); // model
 
 /*
  * Using the save() method with success() and error callback
@@ -197,7 +195,7 @@ book10.save(newBook, {
 });
 
 /*
- * using done() and fail() promise method with save() model method  
+ * using done() and fail() promise method with save() model method
  */
 const newBook2 = {
     title: 'Learn Ionic 2',
@@ -215,7 +213,7 @@ book11.save().done(function(result) {
 
 /*
  * Backbone parses whatever it send to the server using the model toJSON() method
- * If you attribute need modification before it is send to the server you can override the toJSON() method 
+ * If your attribute need modification before it is send to the server you can override the toJSON() method
  */
 /* overriding the toJSON method to unwrap object from array */
 /*
@@ -243,19 +241,19 @@ book12b.save().then(attributes => {
 /* This example is not working as expected  */
 
 /*
- * to validate anything before it is sent to the server, you can override the valudate method.
- * return true for valid data and false for invalid data which will make the save operation to fail 
+ * to validate anything before it is sent to the server, you can override the validate method.
+ * return true for valid data and false for invalid data which will make the save operation to fail
  */
 const newBook3 = {
     author: 'Mathew MacDonald',
-    lang: 'C#', 
+    lang: 'C#',
     page: 780
 };
 const Book11 = Backbone.Model.extend({
   urlRoot: '/add-book',
   initialize: function() {
     this.on('invalid', function(model, error) {
-      console.error(error); //error is same as this.validationError 
+      console.error(error); //error is same as this.validationError
       // console.error(this.validationError);
       console.error('Invalid:', model.attributes);
     });
@@ -267,7 +265,7 @@ const Book11 = Backbone.Model.extend({
         /* for older version you may need to return true or false if invalid
          * for the current verson 1.4.0 you need to return Error or nothing if valid
          */
-      }   
+      }
   },
 });
 
@@ -303,7 +301,7 @@ book13.save(newBook3, {
 
 
 /*
- * Backbone destroy() 
+ * Backbone destroy()
  */
  book5.destroy({
      success: function(model, response, options) {
@@ -330,7 +328,10 @@ book13.save(newBook3, {
  });
  book6.destroy();
 
-/* 
+/**
+ * Model convenience methods borrowed form underscore
+ */
+/*
  * use the isValid() method to check if model is valid before POSTing
  */
 if (book12.isValid()) {
@@ -340,7 +341,7 @@ if (book12.isValid()) {
 }
 
 /*
- * model.key() returns all the keys of the attributes of the model 
+ * model.key() returns all the keys of the attributes of the model
  */
 const keys12 = book12.keys(); // same as _.keys(book12.attributes)
 console.log('Keys 12:', keys12); // ["author", "lang", "page"]
@@ -355,7 +356,7 @@ console.log('Values 12', values12); //  ["Mathew MacDonald", "C#", 780]
  * model.pairs() returns array of attribute key/value pair i.e [ [key1, value1], [key2, value2], [key3, value3] ]
  */
 const pairs12 = book12.pairs();
-console.log('Pairs 12', pairs12); 
+console.log('Pairs 12', pairs12);
 
 /*
  * model.invert() returns the attribute with keys and values switched i.e {pages: 190} becomes {190: pages}
@@ -364,9 +365,9 @@ const invert12 = book12.invert();
 console.log('Invert 12', invert12);
 
 /*
- * model.pick() returns the keys and values of specified attributes 
+ * model.pick() returns the keys and values of specified attributes
  */
-const author = book12.pick('author'); 
+const author = book12.pick('author');
 console.log('Pick 12', author); // {author: "Mathew MacDonald"}
 
 /*

@@ -33,7 +33,7 @@ app.post('/user', (req, res) => {
     } else {
        newUser.userId = 1;
     }
-     
+
     data.push(newUser);
     const lastUser = data[data.length -1];
     return res.json(lastUser);
@@ -44,7 +44,7 @@ app.put('/user/:userId', (req, res) => {
         return res.status(400).send({msg: 'invalid data'});
     }
     /* Username and password must be verified for real application */
-    const index = data.findIndex(user => user.userId = req.params.userId);
+    const index = data.findIndex(user => user.userId == req.params.userId);
     const user = data[index];
     const userData = req.body;
     delete userData.userId;
@@ -55,7 +55,7 @@ app.put('/user/:userId', (req, res) => {
 
 app.delete('/user/:userId', (req, res) => {
     const index = data.findIndex(user => user.userId == req.params.userId);
-    data.splice(index, 1); 
+    data.splice(index, 1);
     res.json({msg: `user with ID ${req.params.userId} has been deleted`});
 });
 

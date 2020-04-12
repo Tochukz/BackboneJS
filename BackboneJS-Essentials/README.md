@@ -94,7 +94,7 @@ const CollectionClass = Backbone.Collection.extend({...optionObject})
 __Collection option object properties and methods__  
 * _model_: `Type`, specifies the model type  
 * _comparator_: `String|Func`, specifies the attribute to be used to sort the models. You may define you own custom function to sort models.  
-* _initialize_: `Funct`, called when an instance of the collection is created.
+* _initialize_: `Func`, called when an instance of the collection is created.
 
 __Collection Methods__  
 * _create(attributes)_ convert attributes object to model, add model to collection and save the model to server.
@@ -123,3 +123,8 @@ Collection's _fetch_ will merge any new data from the server with any data it al
 Collections also have the `url`, `parse` and `toJSON` methods.  
 
 ## Chapter 5: Adding and Modifying Elements with Views   
+
+## Chapter 6: Creating Client-side Pages with Routers
+Backbone route is sensitive to trailing slashed so `yousite.com/admin` is not treated as the same with `yoursite.com/admin/`  
+
+## Chapter 7: Fitting Square Pegs in Round Holes - Advanced Backbone Techniques
